@@ -138,7 +138,7 @@ And there you go! If all went well, you should see **game.gb**, your very own Ga
 
 &#9670; You can [download the code and assembler here](http://make.vg/get/assemblydigest/part-1-make-a-gb-rom.zip).
 
-&#9670; You can also [view the code and this tutorial on Github](https://github.com/assemblydigest/gameboy/gameboy/part-1-make-a-gb-rom/wiz)!
+&#9670; You can also [view the code and this tutorial on Github](https://github.com/assemblydigest/gameboy/tree/master/part-1-make-a-gb-rom/wiz)!
 
 &#9670; This download does not include a Game Boy emulator, but there are plenty available online.
 
