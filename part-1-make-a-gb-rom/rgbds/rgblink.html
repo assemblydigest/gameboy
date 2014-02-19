@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="resource-type" content="document">
+<link rel="stylesheet" href="/rgbds/manual/manual.css" type="text/css" media="all">
+<title>
+RGBLINK(1)</title>
+</head>
+<body>
+<div class="mandoc">
+<table summary="Document Header" class="head" width="100%">
+<col width="30%">
+<col width="30%">
+<col width="30%">
+<tbody>
+<tr>
+<td class="head-ltitle">
+RGBLINK(1)</td>
+<td class="head-vol" align="center">
+General Reference Manual</td>
+<td class="head-rtitle" align="right">
+RGBLINK(1)</td>
+</tr>
+</tbody>
+</table>
+<div class="section">
+<h1 id="x4e414d45">NAME</h1> <b class="name">rgblink</b> &#8212; <span class="desc">Game Boy linker</span></div>
+<div class="section">
+<h1 id="x53594e4f50534953">SYNOPSIS</h1><table class="synopsis">
+<col style="width: 7.00ex;">
+<col>
+<tbody>
+<tr>
+<td>
+rgblink</td>
+<td>
+&#91;<span class="opt"><b class="flag">&#45;t</b></span>&#93; &#91;<span class="opt"><b class="flag">&#45;l</b> <i class="arg">library</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;m</b> <i class="arg">mapfile</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;n</b> <i class="arg">symfile</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;o</b> <i class="arg">outfile</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;p</b> <i class="arg">pad_value</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;s</b> <i class="arg">symbol</i></span>&#93; <i class="arg">file ...</i></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section">
+<h1 id="x4445534352495054494f4e">DESCRIPTION</h1> The <b class="name">rgblink</b> program links objects created by <a class="link-man" href="/rgbds/manual/rgbasm/">rgbasm(1)</a> into a single Game Boy ROM file.<p>
+By default, HOME sections created by the assembler are placed in the 16KiB bank 0, and CODE/DATA sections are placed in any bank except bank 0. If your ROM will only be 32KiB, you can use the <b class="flag">&#45;t</b> option to override this.<p>
+The arguments are as follows:<dl style="margin-top: 0.00em;margin-bottom: 0.00em;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;l</b> <i class="arg">library</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Include a referenced library module created with <a class="link-man" href="/rgbds/manual/rgblib/">rgblib(1)</a>. Note that specified libraries will be included only if needed&#8212;that is, if a SECTION from a library is referenced by an object file. Only the relevant SECTION will be included, rather than the entire module.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;m</b> <i class="arg">mapfile</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Write a mapfile to the given filename.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;n</b> <i class="arg">symfile</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Write a symbol file to the given filename.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;o</b> <i class="arg">outfile</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Write ROM image to the given filename.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;p</b> <i class="arg">pad_value</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+When padding an image, pad with this value. The default is 0x00.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;s</b> <i class="arg">symbol</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+???</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;t</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Write a tiny (32KiB) ROM file. This forces all DATA/CODE sections to be of type HOME, and increases the HOME section size from 16KiB to 32KiB.</dd>
+</dl>
+</div>
+<div class="section">
+<h1 id="x4558414d504c4553">EXAMPLES</h1> All you need for a basic ROM is an object file, which can be made into a ROM image like so:<p>
+<blockquote style="margin-top: 0.00em;margin-bottom: 0.00em;">
+<div class="display">
+$ rgblink &#45;o bar.gb foo.o</div>
+</blockquote>
+<p>
+The resulting bar.gb will not have correct checksums (unless you put them in the assembly source). You should use <a class="link-man" href="/rgbds/manual/rgbfix/">rgbfix(1)</a> to fix these so that the program will actually run in a Game Boy:<p>
+<blockquote style="margin-top: 0.00em;margin-bottom: 0.00em;">
+<div class="display">
+$ rgbfix &#45;v bar.gb</div>
+</blockquote>
+</div>
+<div class="section">
+<h1 id="x53454520414c534f">SEE ALSO</h1> <a class="link-man" href="/rgbds/manual/rgbds/">rgbds(7)</a>, <a class="link-man" href="/rgbds/manual/rgbasm/">rgbasm(1)</a>, <a class="link-man" href="/rgbds/manual/rgbfix/">rgbfix(1)</a>, <a class="link-man" href="/rgbds/manual/rgblib/">rgblib(1)</a>, <a class="link-man" href="/rgbds/manual/gbz80/">gbz80(7)</a></div>
+<div class="section">
+<h1 id="x484953544f5259">HISTORY</h1> <b class="name">rgblink</b> was originally written by Carsten S&#248;rensen as part of the ASMotor package, and was later packaged in RGBDS by Justin Lloyd.</div>
+<table summary="Document Footer" class="foot" width="100%">
+<col width="50%">
+<col width="50%">
+<tbody>
+<tr>
+<td class="foot-date">
+April 11, 2013</td>
+<td class="foot-os" align="right">
+RGBDS Manual</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>
+

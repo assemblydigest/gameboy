@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="resource-type" content="document">
+<link rel="stylesheet" href="/rgbds/manual/manual.css" type="text/css" media="all">
+<title>
+RGBFIX(1)</title>
+</head>
+<body>
+<div class="mandoc">
+<table summary="Document Header" class="head" width="100%">
+<col width="30%">
+<col width="30%">
+<col width="30%">
+<tbody>
+<tr>
+<td class="head-ltitle">
+RGBFIX(1)</td>
+<td class="head-vol" align="center">
+General Reference Manual</td>
+<td class="head-rtitle" align="right">
+RGBFIX(1)</td>
+</tr>
+</tbody>
+</table>
+<div class="section">
+<h1 id="x4e414d45">NAME</h1> <b class="name">rgbfix</b> &#8212; <span class="desc">Game Boy checksum fixer</span></div>
+<div class="section">
+<h1 id="x53594e4f50534953">SYNOPSIS</h1><table class="synopsis">
+<col style="width: 6.00ex;">
+<col>
+<tbody>
+<tr>
+<td>
+rgbfix</td>
+<td>
+&#91;<span class="opt"><b class="flag">&#45;Ccjsv</b></span>&#93; &#91;<span class="opt"><b class="flag">&#45;i</b> <i class="arg">game_id</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;k</b> <i class="arg">licensee_str</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;l</b> <i class="arg">licensee_id</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;m</b> <i class="arg">mbc_type</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;n</b> <i class="arg">rom_version</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;p</b> <i class="arg">pad_value</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;r</b> <i class="arg">ram_size</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;t</b> <i class="arg">title_str</i></span>&#93; <i class="arg">file</i></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section">
+<h1 id="x4445534352495054494f4e">DESCRIPTION</h1> The <b class="name">rgbfix</b> program changes headers of Game Boy ROM images. It also performs other filetype operations, such as truncation. The arguments are as follows:<dl style="margin-top: 0.00em;margin-bottom: 0.00em;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;C</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the Game Boy Color&#8211;only flag: <i class="addr">0x143</i> = 0xC0. If both this and the <b class="flag">&#45;c</b> flag are set, this takes precedence.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;c</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the Game Boy Color&#8211;compatible flag: <i class="addr">0x143</i> = 0x80. If both this and the <b class="flag">&#45;C</b> flag are set, <b class="flag">&#45;C</b> takes precedence.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;i</b> <i class="arg">game_id</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the game ID string (<i class="addr">0x13F</i>&#8211;<i class="addr">0x142</i>) to a given string of exactly 4 characters. If both this and the title are set, the game ID will overwrite the overlapping portion of the title.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;j</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the non-Japanese region flag: <i class="addr">0x14A</i> = 1.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;k</b> <i class="arg">licensee_str</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the new licensee string (<i class="addr">0x144</i>&#8211;<i class="addr">0x145</i>) to a given string, truncated to at most two characters.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;l</b> <i class="arg">licensee_id</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the old licensee code, <i class="addr">0x14B</i>, to a given value from 0 to 0xFF. This value is deprecated and should be set to 0x33 in all new software.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;m</b> <i class="arg">mbc_type</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the MBC type, <i class="addr">0x147</i>, to a given value from 0 to 0xFF.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;n</b> <i class="arg">rom_version</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the ROM version, <i class="addr">0x14C</i>, to a given value from 0 to 0xFF.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;p</b> <i class="arg">pad_value</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Pad the image to a valid size with a given pad value from 0 to 0xFF. <b class="name">rgbfix</b> will automatically pick a size from 32KiB, 64KiB, 128KiB, ..., 8192KiB and give a warning thereafter. The cartridge size byte (<i class="addr">0x148</i>) will be changed to reflect this new size.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;r</b> <i class="arg">ram_size</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the RAM size, <i class="addr">0x149</i>, to a given value from 0 to 0xFF.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;s</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the SGB flag: <i class="addr">0x146</i> = 3.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;t</b> <i class="arg">title</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the title string (<i class="addr">0x134</i>&#8211;<i class="addr">0x143</i>) to a given string, truncated to at most 16 characters. It is recommended to use 15 characters instead, to avoid clashing with the CGB flag (<b class="flag">&#45;c</b> or <b class="flag">&#45;C</b>). If both this and the game ID are set, the game ID will overwrite the overlapping portion of the title.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;v</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Validate the header and fix checksums: the Nintendo character area (<i class="addr">0x104</i>&#8211;<i class="addr">0x133</i>), the header checksum (<i class="addr">0x14D</i>), and the global checksum (<i class="addr">0x14E</i>&#8211;<i class="addr">0x14F</i>).</dd>
+</dl>
+</div>
+<div class="section">
+<h1 id="x4558414d504c4553">EXAMPLES</h1> Most values in the ROM header are only cosmetic. The bare minimum requirements for a workable image are checksums, the Nintendo logo, and (if needed) the CGB/SGB flags. It is a good idea to pad the image to a valid size as well (&#8220;valid meaning a multiple of 32KiB&#8221;).<p>
+The following will make a plain, no-color Game Boy game without checking for a valid size:<p>
+<blockquote style="margin-top: 0.00em;margin-bottom: 0.00em;">
+<div class="display">
+$ rgbfix &#45;v foo.gb</div>
+</blockquote>
+<p>
+The following will make a SGB-enabled, color-enabled game with a title of &#8220;foobar&#8221;, and pad it to a multiple of 32KiB. (The Game Boy itself does not use the title, but some emulators or ROM managers might.)<p>
+<blockquote style="margin-top: 0.00em;margin-bottom: 0.00em;">
+<div class="display">
+$ rgbfix &#45;vcs &#45;l 0x33 &#45;p 0 &#45;t foobar baz.gb</div>
+</blockquote>
+<p>
+The following will duplicate the header (sans global checksum) of the game &#8220;Survival Kids&#8221;:<p>
+<blockquote style="margin-top: 0.00em;margin-bottom: 0.00em;">
+<div class="display">
+$ rgbfix &#45;cjsv &#45;k A4 &#45;l 0x33 &#45;m 0x1B &#45;p 0xFF &#45;r 3 &#45;t SURVIVALKIDAVKE SurvivalKids.gbc</div>
+</blockquote>
+</div>
+<div class="section">
+<h1 id="x53454520414c534f">SEE ALSO</h1> <a class="link-man" href="/rgbds/manual/rgbds/">rgbds(7)</a>, <a class="link-man" href="/rgbds/manual/rgbasm/">rgbasm(1)</a>, <a class="link-man" href="/rgbds/manual/rgblib/">rgblib(1)</a>, <a class="link-man" href="/rgbds/manual/rgblink/">rgblink(1)</a>, <a class="link-man" href="/rgbds/manual/gbz80/">gbz80(7)</a></div>
+<div class="section">
+<h1 id="x484953544f5259">HISTORY</h1> <b class="name">rgbfix</b> was originally released by Carsten S&#248;rensen as a standalone program called gbfix. It was later integrated with the ASMotor package, which became RGBDS.</div>
+<table summary="Document Footer" class="foot" width="100%">
+<col width="50%">
+<col width="50%">
+<tbody>
+<tr>
+<td class="foot-date">
+April 11, 2013</td>
+<td class="foot-os" align="right">
+RGBDS Manual</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>
+
