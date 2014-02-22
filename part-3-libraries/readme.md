@@ -4,7 +4,7 @@ Last time I lied, there's a bit more stuff before the tutorial. I thought I'd po
 
 &#9670; **Hardware Defines**: useful constants and hardware registers for Game Boy, Game Boy Color, and Super Game Boy hardware.
 
-I'll break these up a little bit:
+I'll explain these up a little bit:
 
 ### **Memory Routines**
 
