@@ -1,0 +1,28 @@
+// Fills a range in memory with a specified byte value.
+// hl = destination address
+// bc = byte count
+// a = byte value
+func memset do
+    c++; b++
+    goto start
+def repeat:
+    [hl++] = a
+def start:
+    c--; goto repeat when ~zero
+    b--; goto repeat when ~zero
+end
+
+// Copies count bytes from source to destination.
+// de = destination address
+// hl = source address
+// bc = byte count
+func memcpy do
+    c++; b++
+    goto start
+def repeat:
+    [de] = [hl++] via a
+    de++
+def start:
+    c--; goto repeat when ~zero
+    b--; goto repeat when ~zero
+end

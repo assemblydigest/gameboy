@@ -1,0 +1,35 @@
+; Fills a range in memory with a specified byte value.
+; hl = destination address
+; bc = byte count
+; a = byte value
+memset:
+    inc c
+    inc b
+    jr .start
+.repeat:
+    ld [hl++], a
+.start:
+    dec c
+    jr .repeat, nz
+    dec b
+    jr .repeat, nz
+ret
+
+; Copies count bytes from source to destination.
+; de = destination address
+; hl = source address
+; bc = byte count
+memcpy:
+    inc c
+    inc b
+    jr .start
+.repeat:
+    ld a, [hl++]
+    ld [de], a
+    inc de
+.start:
+    dec c
+    jr .repeat, nz
+    dec b
+    jr .repeat, nz
+ret
