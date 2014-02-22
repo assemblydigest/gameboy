@@ -7,7 +7,7 @@ memset:
     inc b
     jr .start
 .repeat:
-    ld [hl++], a
+    ld [hl+], a
 .start:
     dec c
     jr .repeat, nz
@@ -24,7 +24,7 @@ memcpy:
     inc b
     jr .start
 .repeat:
-    ld a, [hl++]
+    ld a, [hl+]
     ld [de], a
     inc de
 .start:
