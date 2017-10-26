@@ -10,9 +10,9 @@ memset:
     ld [hl+], a
 .start:
     dec c
-    jr .repeat, nz
+    jr nz, .repeat
     dec b
-    jr .repeat, nz
+    jr nz, .repeat
 ret
 
 ; Copies count bytes from source to destination.
@@ -29,7 +29,7 @@ memcpy:
     inc de
 .start:
     dec c
-    jr .repeat, nz
+    jr nz, .repeat
     dec b
-    jr .repeat, nz
+    jr nz, .repeat
 ret
